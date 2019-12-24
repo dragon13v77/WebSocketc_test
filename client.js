@@ -9,6 +9,10 @@ var openSocket = function() {
 	socket.onopen = function(event) {
 		console.log('WebSocket is connected.');
 	};
+
+	socket.onmessage = function(event) {
+		console.debug("WebSocket message received:", event.data);
+	};
 };
 
 var sendMessageToServer = function() {

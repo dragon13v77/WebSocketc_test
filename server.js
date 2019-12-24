@@ -32,8 +32,11 @@ wsServer = new WebSocketServer({
 	httpServer: server
 });
 
-wsServer.on('connect', function(ws) {
-	console.log('WS on connection event ', ws);
+var wcConnection = null;
+wsServer.on('connect', function(webSocketConnection) {
+	console.log('WS on connection event ', webSocketConnection);
+	wcConnection = webSocketConnection;
+	wcConnection.send('Message from server');
 });
 
 // WebSocket server
@@ -47,6 +50,7 @@ wsServer.on('request', function(request) {
 	connection.on('message', function(message) {
 		// Process WebSocket message
 		console.log('WebSocket server received a message', message);
+		wcConnection.send('Server received a message and is responding !');
 	});
 
 	connection.on('close', function(connection) {
